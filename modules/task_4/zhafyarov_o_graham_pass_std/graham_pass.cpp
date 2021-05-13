@@ -322,15 +322,15 @@ std::vector<point> GrahamPassStd(const std::vector<point>& basis_vec) {
   }
 
   int count = 0;
-  for (size_t i = 0; i < result_after.size(); i++) {
+  for (int i = 0; i < static_cast<int>(result_after.size()); i++) {
     count += static_cast<int>(result_after[i].size());
   }
 
   std::vector<point> result_for_seq(count);
 
-  size_t k = 0;
-  for (size_t i = 0; i < result_after.size(); i++) {
-    for (size_t j = 0; j < result_after[i].size(); j++) {
+  int k = 0;
+  for (int i = 0; i < static_cast<int>(result_after.size()); i++) {
+    for (int j = 0; j < static_cast<int>(result_after[i].size()); j++) {
       result_for_seq[k] = result_after[i][j];
       k++;
     }
