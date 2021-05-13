@@ -278,12 +278,12 @@ void GrahamPassSeqForStd(const std::vector<point>& basis_vec,
 }
 
 std::vector<point> GrahamPassStd(const std::vector<point>& basis_vec) {
-  int threadNumber = std::thread::hardware_concurrency();
+  int threadNumber = static_cast<int>(std::thread::hardware_concurrency());
   std::vector<std::thread> threads;
 
   std::vector<point> result_point;
 
-  if (4 * std::thread::hardware_concurrency() >=
+  if (4 * threadNumber >=
       static_cast<int>(basis_vec.size())) {
     result_point = GrahamPassSeq(basis_vec);
     return result_point;
@@ -322,15 +322,15 @@ std::vector<point> GrahamPassStd(const std::vector<point>& basis_vec) {
   }
 
   int count = 0;
-  for (int i = 0; i < result_after.size(); i++) {
+  for (size_t i = 0; i < result_after.size(); i++) {
     count += static_cast<int>(result_after[i].size());
   }
 
   std::vector<point> result_for_seq(count);
 
-  int k = 0;
-  for (int i = 0; i < result_after.size(); i++) {
-    for (int j = 0; j < result_after[i].size(); j++) {
+  size_t k = 0;
+  for (size_t i = 0; i < result_after.size(); i++) {
+    for (size_t j = 0; j < result_after[i].size(); j++) {
       result_for_seq[k] = result_after[i][j];
       k++;
     }
