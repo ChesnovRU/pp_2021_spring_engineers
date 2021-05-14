@@ -24,10 +24,11 @@ TEST(STD, x200_Points_Check) {
 }
 
 TEST(STD, Count_Check) {
+  int count_tmp;
   std::vector<point> vec = { {1, 1}, {1, 4},
                                            {4, 1}, {4, 4}, {2, 2}};
   std::vector<point> result;
-  int count_tmp = 4;
+  count_tmp = 4;
   result = GrahamPassStd(vec);
   ASSERT_EQ(static_cast<int>(result.size()), count_tmp);
 }
