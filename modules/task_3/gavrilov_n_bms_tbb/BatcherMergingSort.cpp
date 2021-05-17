@@ -1,6 +1,6 @@
 // Copyright 2021 Gavrilov Nikita
-#include <utility>
 #include <tbb/tbb.h>
+#include <utility>
 #include <algorithm>
 #include <vector>
 #include <cmath>
@@ -54,7 +54,7 @@ void SortByNumPlace(std::vector<int>* data, uint8_t rang) {
         throw "rang must be more than 1";
 
     uint8_t maxNumOfDigits = 0;
-    
+
     for (size_t i = 0; i < data->size(); i++) {
         uint8_t numOfDigits = GetNumOfDigits((*data)[i], rang);
         if (numOfDigits > maxNumOfDigits)
@@ -86,7 +86,6 @@ void BatcherMerge(std::vector<int> procsLeft, std::vector<int> procsRight, std::
 
     std::vector<int> procsLeftOdd, procsLeftEven;
     std::vector<int> procsRightOdd, procsRightEven;
-    ;
 
     SplitEvenOdd(procsLeft, &procsLeftEven, &procsLeftOdd);
     SplitEvenOdd(procsRight, &procsRightEven, &procsRightOdd);
@@ -145,7 +144,6 @@ void Sort(std::vector<int>* data, int splitCount) {
 
     tbb::parallel_for(tbb::blocked_range<int>(0, maxSize, 1),
         [&data, countPerProc](const tbb::blocked_range<int>& range) {
-
             auto b = data->begin() + range.begin() * countPerProc;
             auto e = b + countPerProc;
             std::vector<int> localData = std::vector<int>(b, e);
@@ -155,7 +153,6 @@ void Sort(std::vector<int>* data, int splitCount) {
 
         if (size > 1) {
             for (size_t i = 0; i < comps.size(); i++) {
-
                 int beginIndexOfFirst = comps[i].first * countPerProc;
                 int beginIndexOfSecond = comps[i].second * countPerProc;
 
@@ -167,11 +164,11 @@ void Sort(std::vector<int>* data, int splitCount) {
                     int currentIndexOfSecond = beginIndexOfSecond + j;
                     int currentIndexOfFirst = beginIndexOfFirst + k;
                     int index;
-                    if (j < countPerProc && (k >= countPerProc || data->at(currentIndexOfSecond) < data->at(currentIndexOfFirst))) {
+                    if (j < countPerProc &&
+					    (k >= countPerProc || data->at(currentIndexOfSecond) < data->at(currentIndexOfFirst))) {
                         index = currentIndexOfSecond;
                         j++;
-                    }
-                    else {
+                    } else {
                         index = currentIndexOfFirst;
                         k++;
                     }
@@ -182,7 +179,6 @@ void Sort(std::vector<int>* data, int splitCount) {
                 std::copy(tmp.begin() + countPerProc, tmp.end(), data->begin() + beginIndexOfSecond);
             }
         }
-    
 
     data->erase(data->begin() + realSize, data->end());
 }
