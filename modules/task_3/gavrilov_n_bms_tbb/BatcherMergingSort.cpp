@@ -165,7 +165,7 @@ void Sort(std::vector<int>* data, int splitCount) {
                     int currentIndexOfFirst = beginIndexOfFirst + k;
                     int index;
                     if (j < countPerProc &&
-					    (k >= countPerProc || data->at(currentIndexOfSecond) < data->at(currentIndexOfFirst))) {
+                        (k >= countPerProc || data->at(currentIndexOfSecond) < data->at(currentIndexOfFirst))) {
                         index = currentIndexOfSecond;
                         j++;
                     } else {
