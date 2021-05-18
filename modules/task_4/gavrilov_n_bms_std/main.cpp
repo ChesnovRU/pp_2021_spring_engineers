@@ -1,16 +1,13 @@
 // Copyright 2021 Gavrilov Nikita
 #define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING
 
-//#define CHECK_TIME
 
 #include <gtest/gtest.h>
 #include <vector>
 #include <iostream>
 #include <ctime>
 #include <random>
-#ifdef CHECK_TIME
-#include <chrono>
-#endif
+#include "../../3rdparty/unapproved/unapproved.h"
 #include "../../modules/task_4/gavrilov_n_bms_std/BatcherMergingSort.h"
 
 const int dataCount = 1000;
@@ -52,7 +49,6 @@ TEST(Parallel_Operations_TBB, Sorting_Right_SplitCount1toMax) {
     }
 }
 
-#ifdef CHECK_TIME
 TEST(Parallel_Operations_TBB, Sorting_Time_SplitCount1toMax) {
     for (int i = 1; i <= maxSplitCount; i++) {
         std::vector<int> data = GetRandomVector(dataCount);
@@ -65,7 +61,6 @@ TEST(Parallel_Operations_TBB, Sorting_Time_SplitCount1toMax) {
         std::cout << "time of (splitCount = " << i << " count = " << dataCount << ") : " << t << std::endl;
     }
 }
-#endif
 
 TEST(Parallel_Operations_TBB, Sort_By_Num_Place_Rang10) {
     std::vector<int> data = GetRandomVector(dataCount);

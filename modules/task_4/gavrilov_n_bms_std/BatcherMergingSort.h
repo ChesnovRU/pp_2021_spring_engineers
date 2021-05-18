@@ -1,6 +1,6 @@
 // Copyright 2021 Gavrilov Nikita
-#ifndef MODULES_TASK_3_GAVRILOV_N_BMS_TBB_BATCHERMERGINGSORT_H_
-#define MODULES_TASK_3_GAVRILOV_N_BMS_TBB_BATCHERMERGINGSORT_H_
+#ifndef MODULES_TASK_4_GAVRILOV_N_BMS_STD_BATCHERMERGINGSORT_H_
+#define MODULES_TASK_4_GAVRILOV_N_BMS_STD_BATCHERMERGINGSORT_H_
 
 #include <stdint.h>
 #include <utility>
@@ -21,4 +21,4 @@ std::vector<std::pair<int, int>> Batcher(int procCount);
 
 void Sort(std::vector<int>* data, int splitCount);
 
-#endif  // MODULES_TASK_3_GAVRILOV_N_BMS_TBB_BATCHERMERGINGSORT_H_
+#endif  // MODULES_TASK_4_GAVRILOV_N_BMS_STD_BATCHERMERGINGSORT_H_
