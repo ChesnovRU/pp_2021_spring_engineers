@@ -142,7 +142,7 @@ void Sort(std::vector<int>* data, int splitCount) {
     std::vector<std::thread> threads;
     threads.reserve(splitCount);
 
-    for (size_t i = 0; i < splitCount; i++) {
+    for (int i = 0; i < splitCount; i++) {
         threads.push_back(std::thread([i, &data, countPerProc] {
             auto b = data->begin() + i * countPerProc;
             auto e = b + countPerProc;
