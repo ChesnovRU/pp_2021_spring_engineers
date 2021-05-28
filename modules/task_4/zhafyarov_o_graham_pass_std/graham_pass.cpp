@@ -38,7 +38,7 @@ double Rotation(point a, point b, point c) {
 }
 
 std::vector<point> GrahamPassSeq(const std::vector<point>& basis_vec) {
-  std::vector<size_t> result_index;
+  std::vector<std::size_t> result_index;
 
   std::vector<int> vec_tmp;
 
@@ -98,7 +98,7 @@ std::vector<point> GrahamPassSeq(const std::vector<point>& basis_vec) {
 /*
 std::vector<point> GrahamPassOmp(const std::vector<point>& basis_vec) {
   std::vector<point> result_point;
-  std::vector<size_t> result_index;
+  std::vector<std::size_t> result_index;
   std::vector<point> result;
 
   int block = static_cast<int>(basis_vec.size()) / omp_get_max_threads();
@@ -221,7 +221,7 @@ std::vector<point> GrahamPassTbb(
 
 void GrahamPassSeqForStd(const std::vector<point>& basis_vec,
                std::vector<point>* result_after) {
-  std::vector<size_t> result_index;
+  std::vector<std::size_t> result_index;
 
   std::vector<int> vec_tmp;
 
