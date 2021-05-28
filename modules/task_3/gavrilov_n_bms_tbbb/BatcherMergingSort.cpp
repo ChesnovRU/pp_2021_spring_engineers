@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <vector>
 #include <cmath>
-#include "../../modules/task_3/gavrilov_n_bms_tbb/BatcherMergingSort.h"
+#include "../../modules/task_3/gavrilov_n_bms_tbbb/BatcherMergingSort.h"
 
 #define MY_INT_MAX 2147483647
 

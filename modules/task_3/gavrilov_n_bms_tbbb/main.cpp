@@ -7,10 +7,10 @@
 #include <iostream>
 #include <ctime>
 #include <random>
-#include "../../modules/task_3/gavrilov_n_bms_tbb/BatcherMergingSort.h"
+#include "../../modules/task_3/gavrilov_n_bms_tbbb/BatcherMergingSort.h"
 
 const int dataCount = 1000;
-const int maxSplitCount = 6;
+const int maxSplitCount = 6; // new pull request
 
 bool IsSorted(const std::vector<int>& data) {
     if (data.size() == 0)
