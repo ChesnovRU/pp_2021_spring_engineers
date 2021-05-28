@@ -1,12 +1,16 @@
 // Copyright 2020 Sandalov Konstantin
-#include <math.h>
 #include <tbb/parallel_for.h>
+#include <cmath>
 #include <cstdint>
 #include <vector>
 #include <stdexcept>
 #include "../../modules/task_3/sandalov_k_lin_filter_horizontal_part/lin_filter_horizontal_part.h"
 
 #define _USE_MATH_DEFINES
+
+#ifndef M_PI
+    #define M_PI 3.14159265358979323846
+#endif
 
 namespace my {
 
