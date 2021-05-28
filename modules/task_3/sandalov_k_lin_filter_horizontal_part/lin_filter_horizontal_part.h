@@ -13,7 +13,6 @@ struct Image {
     int64_t height{0};
     int64_t width{0};
     int8_t dims{0};
-
     Image(type* image, int64_t height, int64_t width, int8_t dims):
         image(image),
         height(height),
