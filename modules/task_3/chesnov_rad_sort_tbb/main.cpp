@@ -15,20 +15,20 @@ TEST(randomvec, tru_size) {
 }
 
 TEST(powervec, work_power) {
-  std::vector<int> lis = { 400, 69, 125, 9,1, 87 };
+  std::vector<int> lis = { 400, 69, 125, 9, 1, 87 };
   int power = 3;
   int max = powervec(lis);
   ASSERT_EQ(power, max);
 }
 
 TEST(rads, tru_sort) {
-  std::vector<int> lis = { 400, 69, 125, 9,1, 87 };
+  std::vector<int> lis = { 400, 69, 125, 9, 1, 87 };
   std::vector<int> Tru_ans = { 1, 9, 69, 87, 125, 400 };
   std::vector<int> my_ans = rads(lis);
   ASSERT_EQ(my_ans, Tru_ans);
 }
 TEST(rads_tbb, tru_works) {
-  std::vector<int> lis = { 400, 69, 125, 9,1, 87 };
+  std::vector<int> lis = { 400, 69, 125, 9, 1, 87 };
   std::vector<int> Tru_ans = { 1, 9, 69, 87, 125, 400 };
   std::vector<int> ans = rads_threads(lis);
   ASSERT_EQ(ans, Tru_ans);
