@@ -1,10 +1,11 @@
 // Copyright 2020 Sandalov Konstantin
-#include <tbb/parallel_for.h>
+#include <unapproved.h>
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <vector>
 #include <stdexcept>
-#include "../../modules/task_3/sandalov_k_lin_filter_horizontal_part/lin_filter_horizontal_part.h"
+#include "../../modules/task_4/sandalov_k_lin_filter_horizontal_part/lin_filter_horizontal_part.h"
 
 #define _USE_MATH_DEFINES
 
@@ -88,7 +89,32 @@ std::vector<std::uint8_t> linearFilterSeq(const Image<std::uint8_t>& srcImg,
     return resImg;
 }
 
-std::vector<std::uint8_t> linearFilterPar(const Image<std::uint8_t>& srcImg,
+template<class Function>
+bool my_parallel_for(const int64_t first, const int64_t last, Function&& f,
+    const int num_threads = 1, const int64_t threshold = 1) {
+    if (threshold < 1 || num_threads < 1) return false;
+    const int64_t group_size = std::max(threshold, (last - first) / num_threads);
+    std::vector<std::thread> my_threads;
+    for (int64_t it = first; it < last; it += group_size) {
+        if (it == last - 1) {
+            my_threads.emplace_back(std::thread(f, it));
+        } else {
+            my_threads.emplace_back(std::thread([&f, it, last, group_size](){
+                const auto cur_it = std::min(it, last);
+                const auto cur_last = std::min(it + group_size, last);
+                for (int64_t t = cur_it; t < cur_last; ++t) {
+                    f(t);
+                }
+            }));
+        }
+    }
+    std::for_each(my_threads.begin(), my_threads.end(), [](std::thread& thread) {
+        thread.join();
+    });
+    return true;
+}
+
+std::vector<std::uint8_t> linearFilterParStd(const Image<std::uint8_t>& srcImg,
     const std::vector<float>& kernel, std::int64_t K) {
     if (srcImg.height <= 0 || srcImg.width <= 0 || K <= 0) {
         throw std::runtime_error("Arguments should be positive");
@@ -97,16 +123,14 @@ std::vector<std::uint8_t> linearFilterPar(const Image<std::uint8_t>& srcImg,
         throw std::runtime_error("Incorrect Kernel Size");
     }
     std::vector<std::uint8_t> resImg(srcImg.height * srcImg.width * srcImg.dims);
-    tbb::parallel_for(tbb::blocked_range<std::int64_t>(0, srcImg.height),
-        [&resImg, &srcImg, &kernel, K](tbb::blocked_range<std::int64_t> range) {
-            for (std::int64_t index = range.begin(); index != range.end(); ++index) {
-                for (std::int64_t f = 0; f < srcImg.width; ++f) {
-                    for (std::int8_t dim = 0; dim < srcImg.dims; ++dim)
-                        resImg[index * srcImg.width * srcImg.dims + f * srcImg.dims + dim] = applyKernel(srcImg,
-                            kernel, index, f * srcImg.dims + dim, K);
-            }
+
+    my_parallel_for(int64_t{0}, srcImg.height, [&resImg, &srcImg, &kernel, K](int64_t index){
+        for (std::int64_t f = 0; f < srcImg.width; ++f) {
+            for (std::int8_t dim = 0; dim < srcImg.dims; ++dim)
+                resImg[index * srcImg.width * srcImg.dims + f * srcImg.dims + dim] = applyKernel(srcImg,
+                    kernel, index, f * srcImg.dims + dim, K);
         }
-    });
+    }, 4);
     return resImg;
 }
 }  // namespace my

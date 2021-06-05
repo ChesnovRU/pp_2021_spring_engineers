@@ -1,6 +1,6 @@
 // Copyright 2020 Sandalov Konstantin
-#ifndef MODULES_TASK_3_SANDALOV_K_LIN_FILTER_HORIZONTAL_PART_LIN_FILTER_HORIZONTAL_PART_H_
-#define MODULES_TASK_3_SANDALOV_K_LIN_FILTER_HORIZONTAL_PART_LIN_FILTER_HORIZONTAL_PART_H_
+#ifndef MODULES_TASK_4_SANDALOV_K_LIN_FILTER_HORIZONTAL_PART_LIN_FILTER_HORIZONTAL_PART_H_
+#define MODULES_TASK_4_SANDALOV_K_LIN_FILTER_HORIZONTAL_PART_LIN_FILTER_HORIZONTAL_PART_H_
 
 #include <vector>
 #include <cstdint>
@@ -25,8 +25,8 @@ struct Image {
 std::vector<float> createGaussianFilter(int64_t N, double sigma);
 std::vector<uint8_t> linearFilterSeq(const Image<uint8_t>& srcImg,
     const std::vector<float>& kernel, int64_t K);
-std::vector<uint8_t> linearFilterPar(const Image<uint8_t>& srcImg,
+std::vector<uint8_t> linearFilterParStd(const Image<uint8_t>& srcImg,
     const std::vector<float>& kernel, int64_t K);
 }  // namespace my
 
-#endif  // MODULES_TASK_3_SANDALOV_K_LIN_FILTER_HORIZONTAL_PART_LIN_FILTER_HORIZONTAL_PART_H_
+#endif  // MODULES_TASK_4_SANDALOV_K_LIN_FILTER_HORIZONTAL_PART_LIN_FILTER_HORIZONTAL_PART_H_

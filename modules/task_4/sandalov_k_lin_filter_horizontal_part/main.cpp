@@ -1,7 +1,7 @@
 // Copyright 2020 Sandalov Konstantin
 #include <gtest/gtest.h>
 #include <vector>
-#include "../../modules/task_3/sandalov_k_lin_filter_horizontal_part/lin_filter_horizontal_part.h"
+#include "../../modules/task_4/sandalov_k_lin_filter_horizontal_part/lin_filter_horizontal_part.h"
 
 
 static uint8_t init_arr[] {
@@ -36,15 +36,15 @@ static const std::vector<float> correct_kernel {
     0.0751136, 0.123841, 0.0751136
 };
 
-TEST(Linear_Filter, Create_Filter_With_Even_Size) {
+TEST(STD_Filter, Create_Filter_With_Even_Size) {
     ASSERT_ANY_THROW(my::createGaussianFilter(6, 1));
 }
 
-TEST(Linear_Filter, Create_Filter_With_Negative_Sigma) {
+TEST(STD_Filter, Create_Filter_With_Negative_Sigma) {
     ASSERT_ANY_THROW(my::createGaussianFilter(3, -1));
 }
 
-TEST(Linear_Filter, Create_Filter_With_Correct_Params) {
+TEST(STD_Filter, Create_Filter_With_Correct_Params) {
     std::vector<float> computedKernel;
     ASSERT_NO_THROW(computedKernel = my::createGaussianFilter(3, 1));
     ASSERT_EQ(computedKernel.size(), correct_kernel.size());
@@ -53,19 +53,19 @@ TEST(Linear_Filter, Create_Filter_With_Correct_Params) {
     }
 }
 
-TEST(Linear_Filter, Image_Processing_With_Incorrect_Kernel_Size) {
+TEST(STD_Filter, Image_Processing_With_Incorrect_Kernel_Size) {
     std::vector<float> filter(9, 0);
     ASSERT_ANY_THROW(my::linearFilterSeq(testImage, filter, 5));
-    ASSERT_ANY_THROW(my::linearFilterPar(testImage, filter, 5));
+    ASSERT_ANY_THROW(my::linearFilterParStd(testImage, filter, 5));
 }
 
-TEST(Linear_Filter, Filter_Doesnt_Change_Blank_Image) {
+TEST(STD_Filter, Filter_Doesnt_Change_Blank_Image) {
     auto kernel = my::createGaussianFilter(3, 1);
     auto resSeq = my::linearFilterSeq(blankImage, kernel, 3);
     for (size_t i = 0; i < static_cast<size_t>(blankImage.width*blankImage.height*blankImage.dims); ++i) {
         ASSERT_EQ(blank_image[i], resSeq[i]);
     }
-    auto resPar = my::linearFilterPar(blankImage, kernel, 3);
+    auto resPar = my::linearFilterParStd(blankImage, kernel, 3);
     for (size_t i = 0; i < static_cast<size_t>(blankImage.width*blankImage.height*blankImage.dims); ++i) {
         ASSERT_EQ(blank_image[i], resPar[i]);
     }
@@ -75,13 +75,13 @@ TEST(Linear_Filter, Filter_Doesnt_Change_Blank_Image) {
     }
 }
 
-TEST(Linear_Filter, Filetr_Work_Correct) {
+TEST(STD_Filter, Filetr_Work_Correct) {
     auto kernel = my::createGaussianFilter(3, 1);
     auto resSeq = my::linearFilterSeq(testImage, kernel, 3);
     for (size_t i = 0; i < resSeq.size(); ++i) {
         ASSERT_EQ(res_arr[i], resSeq[i]);
     }
-    auto resPar = my::linearFilterPar(testImage, kernel, 3);
+    auto resPar = my::linearFilterParStd(testImage, kernel, 3);
     for (size_t i = 0; i < resPar.size(); ++i) {
         ASSERT_EQ(res_arr[i], resPar[i]);
     }
