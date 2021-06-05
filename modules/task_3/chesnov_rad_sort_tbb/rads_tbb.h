@@ -4,12 +4,11 @@
 #include <omp.h>
 #include <vector>
 #include <string>
-using namespace std;
 
-int powervec(vector<int> vect);
-vector<int> randomvec(int size);
-vector<int> rads(vector<int> vect);
-vector<int> rads_threads(vector<int> lisd);
-vector<int> sum(vector<int> vec1, vector<int> vec2);
+int powervec(std::vector<int> vect);
+std::vector<int> randomvec(int size);
+std::vector<int> rads(std::vector<int> vect);
+std::vector<int> rads_threads(std::vector<int> lisd);
+std::vector<int> sum(std::vector<int> vec1, std::vector<int> vec2);
 
 #endif
